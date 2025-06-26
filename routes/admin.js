@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 
 import { loginPage, adminLogin, logout } from "../controllers/userController.js";
-import { allUsers, addUserPage, addUser, updateUserPage, updateUser, deleteUser } from "../controllers/userController.js";
+import { allUsers, addUserPage, addUser, updateUserPage, updateUser, deleteUser, dashboard, settings } from "../controllers/userController.js";
 import { allCategory, addCategoryPage, addCategory, updateCategoryPage, updateCategory, deleteCategory } from "../controllers/categoryController.js";
 import { allArticle, addArticlePage, addArticle, updateArticlePage, updateArticle, deleteArticle } from "../controllers/articleController.js";
 import { allComments } from "../controllers/commentController.js";
@@ -11,6 +11,10 @@ import { allComments } from "../controllers/commentController.js";
 router.get("/", loginPage);
 router.post("/index", adminLogin);
 router.get("/logout", logout);
+
+
+router.get("/dashboard", dashboard); 
+router.get("/settings", settings); 
 
 
 //User CRUD Routes
