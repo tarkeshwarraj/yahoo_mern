@@ -1,14 +1,16 @@
-  <div id="admin-content">
-      <div class="container">
-          <div class="row">
-              <div class="col-md-10">
-                <h1 class="admin-heading"><i class="fa fa-users"></i> All Users</h1>
-              </div>
-              <div class="col-md-2">
-                <a class="add-new" href="add-user.html">add user</a>
-              </div>
-              <div class="col-md-12">
-                <table class="content-table">
+<div id="admin-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <h1 class="admin-heading"><i class="fa fa-users"></i> All Users</h1>
+      </div>
+      <div class="col-md-2">
+        <a class="add-new" href="/admin/add-user">add user</a>
+      </div>
+      <div class="col-md-12">
+        <!-- <pre><%= JSON.stringify(users, null, 2) %></pre> -->
+        <div id="usersTable"></div>
+        <!-- <table class="content-table">
                     <thead>
                       <th>S.No.</th>
                       <th>Full Name</th>
@@ -66,8 +68,42 @@
                       <a class="page-link" href="#">Next</a>
                     </li>
                   </ul>
-                </nav>
-              </div>
-          </div>
+                </nav> -->
       </div>
+    </div> 
   </div>
+</div>
+
+<script
+  type="text/javascript"
+  src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"
+></script>
+
+
+ <!-- Data rendering -->
+  <script>
+    const tableData = <%- JSON.stringify(users) %>;
+    console.log("tableData", tableData); // ✅ Check
+
+    var table = new Tabulator("#usersTable", {
+      data: tableData,
+      layout: "fitColumns",
+      pagination: true,
+      paginationSize: 5,
+      columns: [
+        { title: "Full Name", field: "fullname", headerFilter: "input" },
+        { title: "Username", field: "username", headerFilter: "input" },
+        { title: "Role", field: "role", headerFilter: "input" },
+        {
+          title: "Actions",
+          formatter: function(cell) {
+            const id = cell.getRow().getData().id;
+            return `
+              <a href="/admin/update-user/${id}"><i class="fa fa-edit"></i></a>
+              <button onclick="deleteUser('${id}')"><i class="fa fa-trash-o"></i></button>
+            `;
+          }
+        }
+      ]
+    });
+  </script>
