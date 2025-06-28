@@ -79,5 +79,13 @@ export const updateUser = async (req, res) => {
 }
 
 
-export const deleteUser = (req, res) => {
+export const deleteUser = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await User.findByIdAndDelete(id);
+        res.status(200).send('User deleted successfully');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
 }
