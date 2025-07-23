@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import path from 'path';
 import expressLayouts from 'express-ejs-layouts';
-import session from 'express-session';
+import cookieParser from 'cookie-parser';
 import flash from 'connect-flash';
 import connectDB from './config/database.js';
 import dotenv from 'dotenv';
@@ -16,6 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(process.cwd(), 'public')));
+app.use(cookieParser());
 app.use(expressLayouts);
 app.set('layout', 'layout');
 
