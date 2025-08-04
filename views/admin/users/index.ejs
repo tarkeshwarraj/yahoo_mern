@@ -8,7 +8,7 @@
         <a class="add-new" href="/admin/add-user">add user</a>
       </div>
       <div class="col-md-12">
-        <!-- <pre><%= JSON.stringify(users, null, 2) %></pre> -->
+        <pre><%= JSON.stringify(users, null, 2) %></pre>
         <div id="usersTable"></div>
         <!-- <table class="content-table">
                     <thead>
@@ -96,11 +96,11 @@
         { title: "Role", field: "role", headerFilter: "input" },
         {
           title: "Actions",
-          formatter: function(cell) {
+          formatter: function(cell, formatterParams, onRendered) {
             const id = cell.getRow().getData().id;
             return `
-              <a href="/admin/update-user/${id}"><i class="fa fa-edit"></i></a>
-              <button onclick="deleteUser('${id}')"><i class="fa fa-trash-o"></i></button>
+              <a href="/admin/update-user/${cell.getData()._id}"><i class="fa fa-edit"></i></a>
+              <button onclick="deleteUser('${cell.getData()._id}')"><i class="fa fa-trash-o"></i></button>
             `;
           }
         }
@@ -122,3 +122,6 @@
       }
     }
   </script>
+
+<%- contentFor('tabulatorCSS') %>
+<link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css" rel="stylesheet">
